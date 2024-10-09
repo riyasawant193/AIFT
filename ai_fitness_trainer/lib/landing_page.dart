@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatelessWidget {
+  const LandingPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,9 +14,9 @@ class LandingPage extends StatelessWidget {
           Expanded(
             child: PageView(
               children: [
-                Image.asset('assets/slide1.jpg'),
-                Image.asset('assets/slide2.jpg'),
-                Image.asset('assets/slide3.jpg'),
+                Image.asset('assets/asset 1.jpg'),
+                Image.asset('assets/asset 2.jpg'),
+                Image.asset('assets/asset 3.jpg'),
               ],
             ),
           ),

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 
 class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
+
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
