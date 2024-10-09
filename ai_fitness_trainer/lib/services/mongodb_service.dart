@@ -1,22 +1,26 @@
 import 'package:mongo_dart/mongo_dart.dart';
 
 class MongoDBService {
-  static Db? _db;
-  static DbCollection? _collection;
+  static var db;
+  static var userCollection;
 
-  static Future<void> init() async {
-    _db = await Db.create('mongodb://<your-mongo-db-uri>');
-    await _db!.open();
-    _collection = _db!.collection('user_data');
+  static Future<void> connect() async {
+    db = await Db.create(
+        'mongodb+srv://riyasawant:dontstartnow@cluster.33yox.mongodb.net/');
+    await db.open();
+    userCollection = db.collection('user_data');
   }
 
   static Future<void> insertUser(Map<String, dynamic> userData) async {
-    await _collection!.insert(userData);
+    await userCollection.insert(userData);
   }
 
-  static Future<void> close() async {
-    await _db!.close();
+  static Future<Map<String, dynamic>?> getUser(
+      String email, String password) async {
+    final user = await userCollection.findOne({
+      'email': email,
+      'password': password,
+    });
+    return user;
   }
-
-  static connect() {}
 }

@@ -14,7 +14,7 @@ class LandingPage extends StatelessWidget {
           Expanded(
             child: PageView(
               children: [
-                Image.asset('assets/asset 1.jpg'),
+                Image.asset('assets/asset 1.png'),
                 Image.asset('assets/asset 2.jpg'),
                 Image.asset('assets/asset 3.jpg'),
               ],
