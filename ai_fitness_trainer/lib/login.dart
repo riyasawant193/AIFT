@@ -1,7 +1,20 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
+import 'package:firebase_core/firebase_core.dart'; // Import Firebase Core
+import 'package:ai_fitness_trainer/home.dart'; // Import your home page
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+  String? _email, _password; // Make _email and _password nullable
+  bool _isLoading = false;
+  String _errorMessage = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,16 +67,27 @@ class LoginPage extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 40),
-                    child: Column(
-                      children: <Widget>[
-                        FadeInUp(
-                            duration: Duration(milliseconds: 1200),
-                            child: makeInput(label: "Email")),
-                        FadeInUp(
-                            duration: Duration(milliseconds: 1300),
-                            child: makeInput(
-                                label: "Password", obscureText: true)),
-                      ],
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          FadeInUp(
+                              duration: Duration(milliseconds: 1200),
+                              child: makeInput(
+                                  label: "Email",
+                                  onSaved: (value) {
+                                    _email = value;
+                                  })),
+                          FadeInUp(
+                              duration: Duration(milliseconds: 1300),
+                              child: makeInput(
+                                  label: "Password",
+                                  obscureText: true,
+                                  onSaved: (value) {
+                                    _password = value;
+                                  })),
+                        ],
+                      ),
                     ),
                   ),
                   FadeInUp(
@@ -83,16 +107,19 @@ class LoginPage extends StatelessWidget {
                           child: MaterialButton(
                             minWidth: double.infinity,
                             height: 60,
-                            onPressed: () {},
+                            onPressed: _login,
                             color: Colors.greenAccent,
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50)),
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 18),
-                            ),
+                            child: _isLoading
+                                ? CircularProgressIndicator()
+                                : Text(
+                                    "Login",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18),
+                                  ),
                           ),
                         ),
                       )),
@@ -127,7 +154,10 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget makeInput({label, obscureText = false}) {
+  Widget makeInput(
+      {required String label,
+      bool obscureText = false,
+      required FormFieldSetter<String>? onSaved}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -139,8 +169,9 @@ class LoginPage extends StatelessWidget {
         SizedBox(
           height: 5,
         ),
-        TextField(
+        TextFormField(
           obscureText: obscureText,
+          onSaved: onSaved,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             enabledBorder: OutlineInputBorder(
@@ -154,5 +185,43 @@ class LoginPage extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _login() async {
+    // Check if the current state is not null before calling validate
+    if (_formKey.currentState?.validate() ?? false) {
+      _formKey.currentState?.save();
+      setState(() {
+        _isLoading = true;
+        _errorMessage = '';
+      });
+
+      try {
+        // Sign in with Firebase
+        UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _email!,
+          password: _password!,
+        );
+
+        // Navigate to HomePage after successful login
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          _isLoading = false;
+          _errorMessage = e.message ?? 'An error occurred';
+        });
+      } catch (e) {
+        setState(() {
+          _isLoading = false;
+          _errorMessage = 'An unexpected error occurred';
+        });
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "373432566361",
+    "project_id": "aift-370f8",
+    "storage_bucket": "aift-370f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373432566361:android:d22378a6fdf59c59ebe748",
+        "android_client_info": {
+          "package_name": "com.example.ai_fitness_trainer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLUkl0kS4-pwnbwyT40CKPkJc4zUSOUrY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>API_KEY</key>
+    <string>AIzaSyBgnahP0k2LM4JF2K-StIcVVG_uscRbnzc</string>
+    <key>GCM_SENDER_ID</key>
+    <string>373432566361</string>
+    <key>PLIST_VERSION</key>
+    <string>1</string>
+    <key>BUNDLE_ID</key>
+    <string>com.example.aiFitnessTrainer</string>
+    <key>PROJECT_ID</key>
+    <string>aift-370f8</string>
+    <key>STORAGE_BUCKET</key>
+    <string>aift-370f8.appspot.com</string>
+    <key>IS_ADS_ENABLED</key>
+    <false/>
+    <key>IS_ANALYTICS_ENABLED</key>
+    <false/>
+    <key>IS_APPINVITE_ENABLED</key>
+    <true/>
+    <key>IS_GCM_ENABLED</key>
+    <true/>
+    <key>IS_SIGNIN_ENABLED</key>
+    <true/>
+    <key>GOOGLE_APP_ID</key>
+    <string>1:373432566361:ios:52e73d000d08c0eaebe748</string>
+    <key>CLIENT_ID</key>
+    <string>373432566361-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com</string>
+    <key>REVERSED_CLIENT_ID</key>
+    <string>com.googleusercontent.apps.373432566361-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</string>
+    <key>DATABASE_URL</key>
+    <string>https://aift-370f8.firebaseio.com</string>
+</dict>
+</plist>
